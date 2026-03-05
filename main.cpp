@@ -18,7 +18,7 @@ void PrintClientRecordBalanceLine(clsBankClient Client)
 
 void ShowTotalBalances()
 {
-    vector <clsBankClient> vClients = clsBankClient::GetClientsList();
+    vector <clsBankClient> vClients = clsBankClient::GetClientsList("Clients.txt");
 
     cout << "\n\t\t\t\t\tBalances List (" << vClients.size() << ") Client(s).";
     cout << "\n_______________________________________________________";

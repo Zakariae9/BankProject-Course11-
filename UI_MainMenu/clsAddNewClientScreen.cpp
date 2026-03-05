@@ -14,7 +14,7 @@ void	clsAddNewClientScreen::_ReadClientInfo(clsBankClient &ClientObject)
 void    clsAddNewClientScreen::ShowAddNewClientScreen()
 {
     string                  AccountNumber = "";
-    vector<clsBankClient>   ClientsList = clsBankClient::GetClientsList();
+    vector<clsBankClient>   ClientsList = clsBankClient::GetClientsList("Clients.txt");
 
     DrawMainScreenHeader("Add New Client Screen");
     AccountNumber = clsInputValidate::ReadStr("Enter An Account Number: ");

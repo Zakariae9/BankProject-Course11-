@@ -13,8 +13,9 @@ string clsBankClient::_ConverClientObjectToLine(clsBankClient Client, string Sep
     return Client.GetFirstName() + Seperator + Client.GetLastName() + Seperator + Client.GetEmail() + Seperator + Client.GetPhone() + Seperator + Client.AccountNumber() + Seperator + Client.GetPinCode() + Seperator + to_string(Client.GetAccountBalance());
 }
 
-vector <clsBankClient> clsBankClient::_LoadClientsDataFromFile() {
-    vector <clsBankClient> vClients; fstream MyFile; MyFile.open("Clients.txt", ios::in);
+vector <clsBankClient> clsBankClient::_LoadClientsDataFromFile()
+{
+    vector <clsBankClient> vClients; fstream MyFile; MyFile.open(_FileName, ios::in);
     if (MyFile.is_open()) {
         string Line;
         while (getline(MyFile, Line)) vClients.push_back(_ConvertLinetoClientObject(Line));
@@ -48,7 +49,7 @@ void clsBankClient::_SaveCleintsDataToFile(vector <clsBankClient> &vClients)
 {
     fstream MyFile;
     
-    MyFile.open("Clients.txt", ios::out);
+    MyFile.open(_FileName, ios::out);
     if (MyFile.is_open())
     {
         for (clsBankClient C : vClients)
@@ -63,7 +64,7 @@ void clsBankClient::_SaveCleintsDataToFile(vector <clsBankClient> &vClients)
 
 void clsBankClient::_Update()
 {
-    vector <clsBankClient> _vClients = _LoadClientsDataFromFile();
+    vector <clsBankClient> _vClients = _LoadClientsDataFromFile(_FileName);
     for (clsBankClient& C : _vClients)
     if (C.AccountNumber() == AccountNumber())
     {
@@ -82,7 +83,7 @@ void clsBankClient::_AddDataLineToFile(string stDataLine)
 {
     fstream MyFile;
     
-    MyFile.open("Clients.txt", ios::out | ios::app);
+    MyFile.open(_FileName, ios::out | ios::app);
     if (MyFile.is_open())
     {
         MyFile << stDataLine << endl;
@@ -133,8 +134,9 @@ void PrintClient(clsBankClient ClientInfo)
     << "\n___________________\n";
 }
 
-clsBankClient clsBankClient::Find(string AccountNumber) {
-    fstream MyFile; MyFile.open("Clients.txt", ios::in);
+clsBankClient clsBankClient::Find(string AccountNumber)
+{
+    fstream MyFile; MyFile.open(_FileName, ios::in);
     if (MyFile.is_open()) {
         string Line;
         while (getline(MyFile, Line)) {
@@ -148,7 +150,7 @@ clsBankClient clsBankClient::Find(string AccountNumber) {
 
 
 clsBankClient clsBankClient::Find(string AccountNumber, string PinCode) {
-    fstream MyFile; MyFile.open("Clients.txt", ios::in);
+    fstream MyFile; MyFile.open(_FileName, ios::in);
     if (MyFile.is_open()) {
         string Line;
         while (getline(MyFile, Line)) {
@@ -194,7 +196,7 @@ bool clsBankClient::IsClientExist(string AccountNumber)
 
 bool clsBankClient::Delete()
 {
-    vector <clsBankClient> _vClients = _LoadClientsDataFromFile();
+    vector <clsBankClient> _vClients = _LoadClientsDataFromFile(_FileName);
     for (clsBankClient& C : _vClients)
     {
         if (C.AccountNumber() == _AccountNumber)
@@ -213,13 +215,13 @@ clsBankClient clsBankClient::GetAddNewClientObject(string AccountNumber)
     return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
 }
 
-vector <clsBankClient> clsBankClient::GetClientsList()
+vector <clsBankClient> clsBankClient::GetClientsList(string FileName)
 {
-    return _LoadClientsDataFromFile();
+    return _LoadClientsDataFromFile(FileName);
 }
 float clsBankClient::GetTotalBalances()
 {
-    vector <clsBankClient> vClients = clsBankClient::GetClientsList();
+    vector <clsBankClient> vClients = clsBankClient::GetClientsList("Clients.txt");
     double TotalBalances = 0;
     for (clsBankClient &Client : vClients)
         TotalBalances += Client.GetAccountBalance(); // Changed to GetAccountBalance()

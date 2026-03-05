@@ -16,6 +16,7 @@ private:
     enMode _Mode;
     string _AccountNumber;
     string _PinCode;
+    string _FileName;
     float _AccountBalance;
     bool _MarkedForDelete = false;
 
@@ -50,7 +51,7 @@ public:
     static void SaveCleintsDataToFile(vector <clsBankClient> &vClients);
     bool Delete();
     static clsBankClient GetAddNewClientObject(string AccountNumber);
-    static vector <clsBankClient> GetClientsList();
+    static vector <clsBankClient> GetClientsList(string FileName);
     static float GetTotalBalances();
     void    Deposite(double Amount);
     void    Withdraw(double Amount);

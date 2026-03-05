@@ -2,7 +2,7 @@
 
 void clsTotalBalances::ShowTotalBalancesScreen()
 {
-    vector <clsBankClient> vClients = clsBankClient::GetClientsList();
+    vector <clsBankClient> vClients = clsBankClient::GetClientsList("Clients.txt");
     string Title = "Total Balances Screen";
     string SubTitle = "Total Balances for [" + to_string(vClients.size()) + "] Clients.";
     DrawMainScreenHeader(Title, SubTitle);

@@ -2,7 +2,7 @@
 
 void clsClientListScreen::ShowClientList()
 {
-	vector <clsBankClient> vClients = clsBankClient::GetClientsList();
+	vector <clsBankClient> vClients = clsBankClient::GetClientsList("Clients.txt");
     string  Title = "Client List Screen";
     string  SubTitle = "(" + to_string(vClients.size()) + ") client(s).";
     clsScreen::DrawMainScreenHeader(Title, SubTitle);
